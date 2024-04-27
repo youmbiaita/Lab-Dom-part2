@@ -16,23 +16,29 @@ topMenuEl.classList.add("flex-around");
 
 // Part3: Adding Menu Buttons
 var menuLinks = [
-  {text: 'about', href: '/about'},
-  {text: 'catalog', href: '#', subLinks: [
-    {text: 'all', href: '/catalog/all'},
-    {text: 'top selling', href: '/catalog/top'},
-    {text: 'search', href: '/catalog/search'},
-  ]},
-  {text: 'orders', href: '#' , subLinks: [
-    {text: 'new', href: '/orders/new'},
-    {text: 'pending', href: '/orders/pending'},
-    {text: 'history', href: '/orders/history'},
-  ]},
-  {text: 'account', href: '#', subLinks: [
-    {text: 'profile', href: '/account/profile'},
-    {text: 'sign out', href: '/account/signout'},
-  ]},
+  { text: 'about', href: '/about' },
+  {
+    text: 'catalog', href: '#', subLinks: [
+      { text: 'all', href: '/catalog/all' },
+      { text: 'top selling', href: '/catalog/top' },
+      { text: 'search', href: '/catalog/search' },
+    ]
+  },
+  {
+    text: 'orders', href: '#', subLinks: [
+      { text: 'new', href: '/orders/new' },
+      { text: 'pending', href: '/orders/pending' },
+      { text: 'history', href: '/orders/history' },
+    ]
+  },
+  {
+    text: 'account', href: '#', subLinks: [
+      { text: 'profile', href: '/account/profile' },
+      { text: 'sign out', href: '/account/signout' },
+    ]
+  },
 ];
-menuLinks.forEach((link, i) => {
+menuLinks.forEach(link => {
   const a = document.createElement("a");
   a.setAttribute("href", link.href);
   a.textContent = link.text;
@@ -52,20 +58,36 @@ subMenuEl.style.top = "0";
 
 const topMenuLinks = topMenuEl.getElementsByTagName("a");
 console.log(topMenuLinks)
-  topMenuEl.addEventListener("click",function (evt) {
-    evt.preventDefault();
-    if (evt.target.tagName !== "A"){
-      return;
-    }
-    console.log(evt.target.textContent);
-    if(!evt.target.classList.contains("active")) {
-      evt.target.classList.add("active");
-    }
+topMenuEl.addEventListener("click", function (evt) {
+  evt.preventDefault();
+  if (evt.target.tagName !== "A") {
+    return;
+  }
+  console.log(evt.target.textContent);
+  if (!evt.target.classList.contains("active")) {
+    evt.target.classList.add("active");
     Array.from(topMenuLinks).forEach(link => {
-      if(link !== evt.target) {
+      if (link !== evt.target) {
         link.classList.remove("active");
       }
-    })  
-  });
+    })
+//Part5: Adding Submenu Iteraction
+    if (evt.target.textContent !== "about") {
+      subMenuEl.style.top = "100%";
+    } else {
+      subMenuEl.style.top = "0";
+    }
+  } else {
+    evt.target.classList.remove("active");
+    subMenuEl.style.top = "0";
+  }
+});
+
+function buildSubmenu (){
+  
+
+}
+
+
 
 
