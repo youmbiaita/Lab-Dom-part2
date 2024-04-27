@@ -71,11 +71,16 @@ topMenuEl.addEventListener("click", function (evt) {
         link.classList.remove("active");
       }
     })
-//Part5: Adding Submenu Iteraction
+    //Part5: Adding Submenu Iteraction
     if (evt.target.textContent !== "about") {
       subMenuEl.style.top = "100%";
     } else {
       subMenuEl.style.top = "0";
+      // Insert update for About
+      mainEl.innerHTML = "";
+      const h1 = document.createElement("h1");
+      mainEl.appendChild(h1);
+      h1.textContent = evt.target.textContent;
     }
   } else {
     evt.target.classList.remove("active");
@@ -84,10 +89,10 @@ topMenuEl.addEventListener("click", function (evt) {
   buildSubmenu(evt.target.textContent);
 });
 
-function buildSubmenu (selectedItem){
+function buildSubmenu(selectedItem) {
   subMenuEl.innerHTML = "";
   menuLinks.forEach(link => {
-    if(link.text === selectedItem && selectedItem !== "about") {
+    if (link.text === selectedItem && selectedItem !== "about") {
       link.subLinks.forEach(subLink => {
         const a = document.createElement("a");
         a.setAttribute("href", subLink.href);
@@ -98,7 +103,7 @@ function buildSubmenu (selectedItem){
   })
 }
 
-subMenuEl.addEventListener("click", function (evt){
+subMenuEl.addEventListener("click", function (evt) {
   evt.preventDefault();
   if (evt.target.tagName !== "A") {
     return;
@@ -109,9 +114,10 @@ subMenuEl.addEventListener("click", function (evt){
     link.classList.remove("active");
   })
 
+  mainEl.innerHTML = "";
   const h1 = document.createElement("h1");
-subMenuEl.appendChild(h1);
-h1.textContent = "a";
+  mainEl.appendChild(h1);
+  h1.textContent = evt.target.textContent;
 })
 
 
