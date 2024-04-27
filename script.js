@@ -16,10 +16,21 @@ topMenuEl.classList.add("flex-around");
 
 // Part3: Adding Menu Buttons
 var menuLinks = [
-  { text: "about", href: "/about" },
-  { text: "catalog", href: "/catalog" },
-  { text: "orders", href: "/orders" },
-  { text: "account", href: "/account" },
+  {text: 'about', href: '/about'},
+  {text: 'catalog', href: '#', subLinks: [
+    {text: 'all', href: '/catalog/all'},
+    {text: 'top selling', href: '/catalog/top'},
+    {text: 'search', href: '/catalog/search'},
+  ]},
+  {text: 'orders', href: '#' , subLinks: [
+    {text: 'new', href: '/orders/new'},
+    {text: 'pending', href: '/orders/pending'},
+    {text: 'history', href: '/orders/history'},
+  ]},
+  {text: 'account', href: '#', subLinks: [
+    {text: 'profile', href: '/account/profile'},
+    {text: 'sign out', href: '/account/signout'},
+  ]},
 ];
 menuLinks.forEach((link, i) => {
   const a = document.createElement("a");
@@ -27,19 +38,34 @@ menuLinks.forEach((link, i) => {
   a.textContent = link.text;
   topMenuEl.appendChild(a);
 });
-const names2 = ["Join", "Customer Service", "Address"];
-const names3 = ["Blog", "Register", "Login", "Log Out"];
-const colors = ["red", "blue", "gold", "dark grey"];
-names2.forEach((liNames2) => {
-  const li2 = document.createElement("li");
-  const aTag1 = document.createElement("a");
-  aTag1;
-  aTag1.textContent = liNames2;
-  li2.appendChild(aTag1);
-  //   ol1.appendChild(li2);
-});
 
 //Part3 of Part Two
 //1. Select and cache the <nav id="sub-menu"> element in a variable named subMenuEl.
-const subMenuEl = document.querySelector("sub-menu");
+const subMenuEl = document.getElementById("sub-menu");
 subMenuEl.style.height = "100%";
+subMenuEl.style.backgroundColor = "var(--sub-menu-bg)";
+subMenuEl.classList.add("flex-around");
+subMenuEl.style.position = "absolute";
+subMenuEl.style.top = "0";
+
+//Part4 : Adding menu Interaction
+
+const topMenuLinks = topMenuEl.getElementsByTagName("a");
+console.log(topMenuLinks)
+  topMenuEl.addEventListener("click",function (evt) {
+    evt.preventDefault();
+    if (evt.target.tagName !== "A"){
+      return;
+    }
+    console.log(evt.target.textContent);
+    if(!evt.target.classList.contains("active")) {
+      evt.target.classList.add("active");
+    }
+    Array.from(topMenuLinks).forEach(link => {
+      if(link !== evt.target) {
+        link.classList.remove("active");
+      }
+    })  
+  });
+
+
